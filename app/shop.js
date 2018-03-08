@@ -1,3 +1,7 @@
+const AGED_BRIE        = 'Aged Brie';
+const BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert';
+const SULFURAS         = 'Sulfuras, Hand of Ragnaros';
+
 class Shop {
   constructor(items=[]){
     this.items = items;
@@ -6,18 +10,18 @@ class Shop {
   updateQuality() {
     let currItem, qualityChange = 0;
 
-    for (var i = 0; i < this.items.length; i++) {
+    for (let i = 0; i < this.items.length; i++) {
       currItem = this.items[i];
-      if (currItem.name === 'Sulfuras, Hand of Ragnaros') {
+      if (currItem.name === SULFURAS) {
         // do nothing
         currItem.quality = 80;
       } else {
         // update quality
         switch (currItem.name) {
-          case 'Aged Brie':
+          case AGED_BRIE:
             qualityChange++;
             break;
-          case 'Backstage passes to a TAFKAL80ETC concert':
+          case BACKSTAGE_PASSES:
             qualityChange++;
             if (currItem.sellIn <= 10) qualityChange++;
             if (currItem.sellIn <= 5) qualityChange++;
