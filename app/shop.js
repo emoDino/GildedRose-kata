@@ -48,9 +48,9 @@ class Shop {
         } else {
           if (currItem.sellIn <= 0 ) qualityChange--;
           qualityChange--;
+          if (isConjured(currItem)) qualityChange *= 2;
         }
 
-        if (isConjured(currItem)) qualityChange *= 2;
 
         currItem.quality += qualityChange;
         if (currItem.quality < 0) currItem.quality = 0;
