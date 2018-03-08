@@ -25,7 +25,7 @@ class Shop {
   }
 
   updateQuality() {
-    let currItem, qualityChange = 0;
+    let currItem, qualityChange;
 
     for (let i = 0; i < this.items.length; i++) {
       currItem = this.items[i];
@@ -34,6 +34,8 @@ class Shop {
         currItem.quality = 80;
       } else {
         // update quality
+        qualityChange = 0;
+
         if (isAgedBrie(currItem)) {
           qualityChange++;
         }
