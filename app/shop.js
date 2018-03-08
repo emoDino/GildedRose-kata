@@ -51,7 +51,6 @@ class Shop {
           if (isConjured(currItem)) qualityChange *= 2;
         }
 
-
         currItem.quality += qualityChange;
         if (currItem.quality < 0) currItem.quality = 0;
         if (currItem.quality > 50) currItem.quality = 50;
