@@ -4,7 +4,7 @@ const Item = require('../app/item.js');
 const Shop = require('../app/shop.js');
 
 const agedBrie =        new Item('Aged Brie', 100, 25);
-const backstagePasses = new Item('Backstage passes to a TAFKAL80ETC concert', 15, 30);
+const backstagePasses = new Item('ETC Backstage Passes', 15, 30);
 const sulfuras =        new Item('Sulfuras, Hand of Ragnaros', 100, 80);
 
 describe('Shop', () => {

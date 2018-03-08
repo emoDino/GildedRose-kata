@@ -1,6 +1,17 @@
-const AGED_BRIE        = 'Aged Brie';
-const BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert';
-const SULFURAS         = 'Sulfuras, Hand of Ragnaros';
+const AGED_BRIE        = 'Aged Brie'.toUpperCase();
+const SULFURAS         = 'Sulfuras, Hand of Ragnaros'.toUpperCase();
+
+function isAgedBrie(item) {
+  return item.name.toUpperCase() === AGED_BRIE;
+}
+
+function isBackstagePass(item) {
+  return item.name.toUpperCase().includes('BACKSTAGE PASSES');
+}
+
+function isSulfuras(item) {
+  return item.name.toUpperCase() === SULFURAS;
+}
 
 class Shop {
   constructor(items=[]){
@@ -12,27 +23,25 @@ class Shop {
 
     for (let i = 0; i < this.items.length; i++) {
       currItem = this.items[i];
-      if (currItem.name === SULFURAS) {
+      if (isSulfuras(currItem)) {
         // do nothing
         currItem.quality = 80;
       } else {
         // update quality
-        switch (currItem.name) {
-          case AGED_BRIE:
-            qualityChange++;
-            break;
-          case BACKSTAGE_PASSES:
-            qualityChange++;
-            if (currItem.sellIn <= 10) qualityChange++;
-            if (currItem.sellIn <= 5) qualityChange++;
-            if (currItem.sellIn === 0) {
-              qualityChange = 0;
-              currItem.quality = 0;
-            }
-            break;
-          default:
-            if (currItem.sellIn <= 0 ) qualityChange--;
-            qualityChange--;
+        if (isAgedBrie(currItem)) {
+          qualityChange++;
+        }
+        else if (isBackstagePass(currItem)) {
+          qualityChange++;
+          if (currItem.sellIn <= 10) qualityChange++;
+          if (currItem.sellIn <= 5) qualityChange++;
+          if (currItem.sellIn === 0) {
+            qualityChange = 0;
+            currItem.quality = 0;
+          }
+        } else {
+          if (currItem.sellIn <= 0 ) qualityChange--;
+          qualityChange--;
         }
 
         currItem.quality += qualityChange;
