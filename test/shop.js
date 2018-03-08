@@ -10,9 +10,25 @@ const sulfuras =        new Item('Sulfuras, Hand of Ragnaros', 100, 80);
 describe('Shop', () => {
   let myShop;
 
+  describe('constructor', () => {
+    it('should have zero items when given no parameter', done => {
+      myShop = new Shop();
+      assert.equal(myShop.items.length, 0);
+      done();
+    });
+    
+    it('should initialize the items field', done => {
+      const myItem = new Item('item', 0, 0);
+      myShop = new Shop([ myItem ]);
+      assert.equal(myShop.items.length, 1);
+      assert.equal(myShop.items[0], myItem);
+      done();
+    });
+  });
+
   describe('updateQuality', () => {
     beforeEach(() => {
-      myShop = new Shop([ new Item('Item', 5, 5) ]);
+      myShop = new Shop([ new Item('item', 5, 5) ]);
     });
 
     it('should decrement the sellIn property', done => {
@@ -68,26 +84,6 @@ describe('Shop', () => {
       });
     });
 
-    describe('Sulfuras', () => {
-      beforeEach(() => {
-        myShop = new Shop([ sulfuras ]);
-      });
-
-      it('should always be quality 80', done => {
-        myShop.updateQuality();
-        const myHandOfRag = myShop.items[0];
-        assert.equal(myHandOfRag.quality, 80);
-        done();
-      });
-
-      it('should never have to be sold', done => {
-        myShop.updateQuality();
-        const myHandOfRag = myShop.items[0];
-        assert.equal(myHandOfRag.sellIn, 100);
-        done();
-      });
-    });
-
     describe('Backstage Passes', () => {
       it('should increase in quality by 1 for > 10 days left', done => {
         myShop = new Shop([ backstagePasses ]);
@@ -123,6 +119,42 @@ describe('Shop', () => {
         myShop.updateQuality();
         const myPasses = myShop.items[0];
         assert.equal(myPasses.quality, 0);
+        done();
+      });
+    });
+
+    describe('Conjured Items', () => {
+      it('should degrade in quality twice as fast before sellIn', done => {
+        myShop = new Shop([ new Item('Conjured Mana Biscuit', 10, 10) ]);
+        myShop.updateQuality();
+        assert.equal(myShop.items[0].quality, 8);
+        done();
+      });
+
+      it('should degrade in quality twice as fast after sellIn', done => {
+        myShop = new Shop([ new Item('Conjured Mana Pudding', 0, 10) ]);
+        myShop.updateQuality();
+        assert.equal(myShop.items[0].quality, 6);
+        done();
+      });
+    });
+
+    describe('Sulfuras', () => {
+      beforeEach(() => {
+        myShop = new Shop([ sulfuras ]);
+      });
+
+      it('should always be quality 80', done => {
+        myShop.updateQuality();
+        const myHandOfRag = myShop.items[0];
+        assert.equal(myHandOfRag.quality, 80);
+        done();
+      });
+
+      it('should never have to be sold', done => {
+        myShop.updateQuality();
+        const myHandOfRag = myShop.items[0];
+        assert.equal(myHandOfRag.sellIn, 100);
         done();
       });
     });
