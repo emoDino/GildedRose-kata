@@ -9,6 +9,10 @@ function isBackstagePass(item) {
   return item.name.toUpperCase().includes('BACKSTAGE PASSES');
 }
 
+function isConjured(item) {
+  return item.name.toUpperCase().includes('CONJURED');
+}
+
 function isSulfuras(item) {
   return item.name.toUpperCase() === SULFURAS;
 }
@@ -44,6 +48,8 @@ class Shop {
           qualityChange--;
         }
 
+        if (isConjured(currItem)) qualityChange *= 2;
+        
         currItem.quality += qualityChange;
         if (currItem.quality < 0) currItem.quality = 0;
         if (currItem.quality > 50) currItem.quality = 50;
