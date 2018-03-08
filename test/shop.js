@@ -37,6 +37,14 @@ describe('Shop', () => {
       done();
     })
 
+    it('should never decrement the quality of an item below 0', done => {
+      myShop = new Shop([ new Item( 'item', 0, 0 ) ]);
+      myShop.updateQuality();
+      const firstItem = myShop.items[0];      
+      assert.equal(firstItem.quality, 0);
+      done();
+    });
+
     it('should never increment the quality of an item over 50', done => {
       myShop = new Shop([
         new Item('Aged Brie', 3, 50),
