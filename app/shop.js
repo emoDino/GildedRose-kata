@@ -1,3 +1,5 @@
+'use strict';
+
 const AGED_BRIE        = 'Aged Brie'.toUpperCase();
 const SULFURAS         = 'Sulfuras, Hand of Ragnaros'.toUpperCase();
 
@@ -49,7 +51,7 @@ class Shop {
         }
 
         if (isConjured(currItem)) qualityChange *= 2;
-        
+
         currItem.quality += qualityChange;
         if (currItem.quality < 0) currItem.quality = 0;
         if (currItem.quality > 50) currItem.quality = 50;
